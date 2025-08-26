@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block title %}Dashboard - Visão Geral{% endblock %}
+{% block content %}
+<h1 class="page-title">Visão Geral</h1>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-title">Vendas (Hoje)</div>
+    <div class="card-value">R$ 4.230</div>
+    <div class="card-sub">+12% vs ontem</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Pedidos</div>
+    <div class="card-value">128</div>
+    <div class="card-sub">+8 novos</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Ticket Médio</div>
+    <div class="card-value">R$ 33,05</div>
+    <div class="card-sub">+3,1% semanal</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Clientes</div>
+    <div class="card-value">2.914</div>
+    <div class="card-sub">+57 hoje</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Performance (7 dias)</h2>
+    </div>
+    <div class="panel-body">
+      <!-- gráfico simples feito com CSS (barras) -->
+      <div class="bar-chart">
+        <div style="--h: 45%" title="Seg"></div>
+        <div style="--h: 60%" title="Ter"></div>
+        <div style="--h: 75%" title="Qua"></div>
+        <div style="--h: 40%" title="Qui"></div>
+        <div style="--h: 80%" title="Sex"></div>
+        <div style="--h: 55%" title="Sáb"></div>
+        <div style="--h: 35%" title="Dom"></div>
+      </div>
+      <div class="bar-labels">
+        <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span
+        ><span>Sex</span><span>Sáb</span><span>Dom</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Top Produtos</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Qtd</th>
+            <th>Receita</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hambúrguer Clássico</td>
+            <td>Lanches</td>
+            <td>72</td>
+            <td>R$ 1.440</td>
+          </tr>
+          <tr>
+            <td>Pizza Pepperoni</td>
+            <td>Pizzas</td>
+            <td>54</td>
+            <td>R$ 1.296</td>
+          </tr>
+          <tr>
+            <td>Suco Natural</td>
+            <td>Bebidas</td>
+            <td>90</td>
+            <td>R$ 810</td>
+          </tr>
+          <tr>
+            <td>Brownie</td>
+            <td>Sobremesas</td>
+            <td>33</td>
+            <td>R$ 396</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

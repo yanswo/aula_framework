@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">Meu Dashboard</div>
+        <nav class="menu">
+          <a href="#" class="active">Visão Geral</a>
+          <a href="#">Pedidos</a>
+          <a href="#">Produtos</a>
+          <a href="#">Clientes</a>
+          <a href="#">Relatórios</a>
+          <a href="#">Configurações</a>
+        </nav>
+        <div class="sidebar-footer">
+          <button id="toggleTheme" class="btn">Alternar tema</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="search">
+            <input type="text" placeholder="Buscar..." />
+          </div>
+          <div class="user">
+            <img src="https://ui-avatars.com/api/?name=Yan" alt="user" />
+            <span>Yan</span>
+          </div>
+        </header>
+
+        <section class="content">{% block content %}{% endblock %}</section>
+      </main>
+    </div>
+
+    <script>
+      const btn = document.getElementById("toggleTheme");
+      btn?.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem(
+          "prefersDark",
+          document.documentElement.classList.contains("dark")
+        );
+      });
+      if (localStorage.getItem("prefersDark") === "true") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </body>
+</html>
