@@ -1,29 +1,29 @@
-{% extends "base.html" %} {% block title %}Perfil{% endblock %} {% block content %}
-<div class="row justify-content-center">
-  <div class="col-lg-8">
-    <div class="card shadow-sm border-0">
-      <div class="card-body p-4">
-        <h1 class="h4 mb-3">Meu perfil</h1>
-        <dl class="row mb-0">
-          <dt class="col-sm-3">Usuário</dt>
-          <dd class="col-sm-9">{{ request.user.username }}</dd>
-          <dt class="col-sm-3">Nome</dt>
-          <dd class="col-sm-9">{{ request.user.get_full_name|default:"—" }}</dd>
-          <dt class="col-sm-3">Email</dt>
-          <dd class="col-sm-9">{{ request.user.email|default:"—" }}</dd>
-          <dt class="col-sm-3">Último login</dt>
-          <dd class="col-sm-9">
-            {{ request.user.last_login|date:"d/m/Y H:i"|default:"—" }}
-          </dd>
-        </dl>
-        <div class="mt-3">
-          <a
-            class="btn btn-outline-secondary"
-            href="{% url 'password_change' %}"
-            >Alterar senha</a
-          >
-        </div>
-      </div>
+{% extends "base.html" %} 
+{% block title %}Meu Perfil{% endblock %} 
+
+{% block content %}
+<h1 class="page-title">Meu Perfil</h1>
+<p class="page-subtitle">Suas informações de cadastro no portal.</p>
+
+<div class="card profile-card">
+  <div class="card-body p-5">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Usuário</dt>
+      <dd class="col-sm-9">{{ request.user.username }}</dd>
+      
+      <dt class="col-sm-3">Nome Completo</dt>
+      <dd class="col-sm-9">{{ request.user.get_full_name|default:"Não informado" }}</dd>
+      
+      <dt class="col-sm-3">Endereço de Email</dt>
+      <dd class="col-sm-9">{{ request.user.email|default:"Não informado" }}</dd>
+      
+      <dt class="col-sm-3">Último Acesso</dt>
+      <dd class="col-sm-9">{{ request.user.last_login|date:"d/m/Y \à\s H:i"|default:"Nunca" }}</dd>
+    </dl>
+    <div class="mt-4">
+      <a class="btn btn-primary" href="{% url 'password_change' %}">
+        <i class="bi bi-key-fill me-2"></i>Alterar Senha
+      </a>
     </div>
   </div>
 </div>

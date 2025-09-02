@@ -3,66 +3,152 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Portal Acadêmico{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static 'siteapp/css/portal_styles.css' %}"
+    />
+
     {% block extra_head %}{% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">MinhaApp</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'password_change' %}"
-                >Alterar senha</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Entrar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'signup' %}">Cadastrar</a>
-            </li>
-            {% endif %}
-          </ul>
+    <div
+      class="app-container {% if user.is_authenticated %}app-container--logged-in{% endif %}"
+    >
+      {% if user.is_authenticated %}
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="{% url 'home' %}" class="brand-logo">
+            <i class="bi bi-box-seam-fill"></i>
+            <span>PortalApp</span>
+          </a>
         </div>
-      </div>
-    </nav>
+        <nav class="menu">
+          <a href="{% url 'home' %}" class="menu-item active"
+            ><i class="bi bi-house-door-fill"></i><span>Início</span></a
+          >
+          <a href="#" class="menu-item"
+            ><i class="bi bi-collection-fill"></i
+            ><span>Minhas Disciplinas</span></a
+          >
+          <a href="#" class="menu-item"
+            ><i class="bi bi-file-earmark-text-fill"></i
+            ><span>Notas e Faltas</span></a
+          >
+          <a href="#" class="menu-item"
+            ><i class="bi bi-cash-coin"></i><span>Financeiro</span></a
+          >
+          <a href="#" class="menu-item"
+            ><i class="bi bi-calendar-week-fill"></i><span>Calendário</span></a
+          >
+          <a href="#" class="menu-item"
+            ><i class="bi bi-book-half"></i><span>Biblioteca</span></a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <a href="{% url 'logout' %}" class="menu-item logout-btn">
+            <i class="bi bi-box-arrow-left"></i>
+            <span>Sair</span>
+          </a>
+        </div>
+      </aside>
+      {% endif %}
 
-    <main class="py-4">
-      <div class="container">
-        {% if messages %} {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %} {% endif %} {% block content %}{% endblock %}
-      </div>
-    </main>
+      <div class="main-area">
+        {% if user.is_authenticated %}
+        <header class="topbar">
+          <div class="search-bar">
+            <i class="bi bi-search"></i>
+            <input
+              type="text"
+              placeholder="Buscar por disciplinas, avisos..."
+            />
+          </div>
+          <div class="topbar-actions">
+            <button id="theme-toggle" class="theme-btn">
+              <i class="bi bi-sun-fill sun-icon"></i>
+              <i class="bi bi-moon-fill moon-icon"></i>
+            </button>
+            <div class="user-profile">
+              <a href="{% url 'profile' %}">
+                <img
+                  src="https://imgs.search.brave.com/BRCnE5dp2iPHEHaNzVovxXIu9aFR8kT3_tLSNHdn2Vc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzEzLzMwLzAwLzU2/LzM2MF9GXzEzMzAw/MDU2NjVfbUJtcUFx/OWk1MzlpcEJnbE1y/cHRSOFp4d3V1YndD/aHEuanBn"
+                  alt="Avatar do Usuário"
+                />
+                <span>{{ user.first_name|default:user.username }}</span>
+              </a>
+            </div>
+          </div>
+        </header>
+        {% else %}
+        <nav class="navbar-public">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+              <i class="bi bi-box-seam-fill me-2"></i>PortalApp
+            </a>
+            <div class="navbar-actions">
+              <a href="{% url 'login' %}" class="btn btn-outline">Entrar</a>
+              <a href="{% url 'signup' %}" class="btn btn-primary"
+                >Criar Conta</a
+              >
+            </div>
+          </div>
+        </nav>
+        {% endif %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <main class="content-wrapper">{% block content %}{% endblock %}</main>
+
+        {% if user.is_authenticated %}
+        <footer class="footer">
+          <p>&copy; {% now "Y" %} PortalApp. Todos os direitos reservados.</p>
+        </footer>
+        {% endif %}
+      </div>
+    </div>
+
+    <script>
+      // Script para alternância de tema Claro/Escuro (sem alterações)
+      const themeToggle = document.getElementById("theme-toggle");
+      const htmlEl = document.documentElement;
+
+      const setTheme = (theme) => {
+        htmlEl.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+      };
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const currentTheme = htmlEl.getAttribute("data-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        });
+      }
+
+      const storedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (storedTheme) {
+        setTheme(storedTheme);
+      } else {
+        setTheme(prefersDark ? "dark" : "light");
+      }
+    </script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>
