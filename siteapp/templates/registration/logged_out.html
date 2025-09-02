@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block title %}Saiu da conta{% endblock %} {% block content %}
+<div class="text-center py-5">
+  <h1 class="h4 mb-3">Você saiu da sua conta.</h1>
+  <a href="{% url 'login' %}" class="btn btn-primary">Entrar novamente</a>
+  <a href="{% url 'home' %}" class="btn btn-outline-secondary ms-2"
+    >Voltar para Home</a
+  >
+</div>
+{% endblock %}

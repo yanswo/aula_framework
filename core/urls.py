@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler403, handler404, handler500
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("siteapp.urls")),
 ]
+
+# Custom error handlers (point to template names via default views)
+handler403 = 'django.views.defaults.permission_denied'
+handler404 = 'django.views.defaults.page_not_found'
+handler500 = 'django.views.defaults.server_error'
